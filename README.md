@@ -1,0 +1,1 @@
+Welcome to my stock market, it's not ready yet but it would be in the future
