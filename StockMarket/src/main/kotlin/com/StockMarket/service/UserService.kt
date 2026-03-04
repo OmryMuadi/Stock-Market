@@ -1,5 +1,6 @@
 package com.StockMarket.service
 
+import com.StockMarket.model.Stock
 import com.StockMarket.model.User
 
 class UserService {
@@ -19,7 +20,7 @@ class UserService {
     }
 
     fun login(email: String, password: String){
-        for ((id, user) in users){
+        for ((_, user) in users){
             if (user.email == email && user.isLoggedIn){
                 throw IllegalArgumentException("The user is already logged in")
             }
@@ -34,5 +35,15 @@ class UserService {
         }
     }
 
-    
+    fun logout(email: String){
+        for ((_, user) in users){
+            if (user.email == email && !user.isLoggedIn){
+                throw IllegalArgumentException("The user is already logged out")
+            }
+            else
+                if(user.email == email){
+                    user.isLoggedIn = false
+                }
+        }
+    }
 }
