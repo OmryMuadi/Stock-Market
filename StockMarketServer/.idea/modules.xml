@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/StockMarketServer.iml" filepath="$PROJECT_DIR$/StockMarketServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StockService.iml" filepath="$PROJECT_DIR$/StockService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/StockService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/StockService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/StockService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/StockService.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UserPortfolio/UserPortfolio.iml" filepath="$PROJECT_DIR$/UserPortfolio/UserPortfolio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UserService.iml" filepath="$PROJECT_DIR$/UserService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UserService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/UserService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UserService.test.iml" filepath="$PROJECT_DIR$/.idea/modules/UserService.test.iml" />
+    </modules>
+  </component>
+</project>
