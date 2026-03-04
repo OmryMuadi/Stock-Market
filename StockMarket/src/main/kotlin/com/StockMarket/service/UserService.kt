@@ -3,7 +3,36 @@ package com.StockMarket.service
 import com.StockMarket.model.User
 
 class UserService {
-    lateinit var users: MutableMap<Int, User>
+    var users: MutableMap<Int, User>
 
-    fun register(first_name: String, last_name: String, email: String)
+    constructor(){
+        users = emptyMap<Int, User>() as MutableMap<Int, User>
+    }
+
+    fun register(first_name: String, last_name: String, email: String, password: String, cashBalance: Float){
+        if (password.length < 6){
+            throw IllegalArgumentException("Password is invalid")
+        }
+        val size = users?.size ?: 0
+        val user: User = User(size + 1, first_name, last_name, email, password, listOf(), cashBalance, true)
+        users.put(size + 1, user);
+    }
+
+    fun login(email: String, password: String){
+        for ((id, user) in users){
+            if (user.email == email && user.isLoggedIn){
+                throw IllegalArgumentException("The user is already logged in")
+            }
+            else
+                if(user.email == email && user.password != password){
+                    throw IllegalArgumentException("Password mismatch")
+            }
+            else
+                if(user.email == email){
+                    user.isLoggedIn = true;
+                }
+        }
+    }
+
+    
 }
