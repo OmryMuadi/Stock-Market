@@ -1,0 +1,22 @@
+<h1 class="title">My Portfolio</h1>
+<div class="portfolio">
+  <!-- Portfolio content goes here -->
+  <p class="welcome">Welcome to your stock portfolio! Here you can view your investments and track their performance.</p>
+
+<table class="portfolio-table">
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Shares</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr (click)="onRowClick(item)" *ngFor="let item of tableData">
+      <td>{{ item.stock }}</td>
+      <td>{{ item.shares }}</td>
+      <td>{{ item.price }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
