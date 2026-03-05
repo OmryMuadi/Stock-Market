@@ -45,4 +45,13 @@ class UserService {
                 }
         }
     }
+
+    fun getUser(email: String): User{
+        for ((_, user) in users) {
+            if (user.email == email){
+                return user
+            }
+        }
+        throw IllegalArgumentException("User with email $email not found")
+    }
 }
