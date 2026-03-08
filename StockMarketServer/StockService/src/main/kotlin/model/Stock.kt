@@ -1,6 +1,11 @@
 package dev.kourier.model
 
-data class Stock(val name: String,
-                 val symbol: String,
-                 val currentPrice: Float,
-                 val isFavorite: Boolean)
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+
+@Document(collection = "stocks")
+data class Stock(
+    @Id
+    val symbol: String,
+    val name: String,
+    val currentPrice: Float)

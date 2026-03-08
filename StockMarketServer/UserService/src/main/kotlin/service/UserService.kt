@@ -9,12 +9,12 @@ class UserService {
         users = emptyMap<String, User>() as MutableMap<String, User>
     }
 
-    fun register(first_name: String, last_name: String, email: String, password: String){
+    fun register(firstName: String, lastName: String, email: String, password: String){
         if (password.length < 6){
             throw IllegalArgumentException("Password is invalid")
         }
         val size = users.size
-        val user: User = User(size + 1, first_name, last_name, email, password, true)
+        val user: User = User(size + 1, firstName, lastName, email, password, true)
         users.put(email, user);
     }
 

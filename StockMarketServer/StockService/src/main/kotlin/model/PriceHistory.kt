@@ -1,4 +1,16 @@
 package dev.kourier.model
 
-data class PriceHistory(val symbol: String,
-                        var datesAndPrices: MutableList<DatesAndPrices>)
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+import java.time.LocalDateTime
+
+data class PricePoint(
+    val timestamp: LocalDateTime,
+    val price: Float
+)
+
+@Document(collection = "price_history")
+data class PriceHistory(
+    @Id
+    val symbol: String,
+    var datesAndPrices: MutableList<PricePoint>)
