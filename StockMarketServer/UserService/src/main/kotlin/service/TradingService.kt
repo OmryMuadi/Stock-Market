@@ -44,6 +44,38 @@ class TradingService(val portfolioService: PortfolioService) {
     fun sellStock(userEmail: String, symbol: String, quantity: Int){
         val portfolio = portfolioService.getPortfolio(userEmail)
             ?: throw RuntimeException("Portfolio not found")
-        
+
+        val stock = MarketDataClient.getStockBySymbol(symbol)
+            ?: throw RuntimeException("Stock not found")
+
+        val existingHolding = portfolio.holdings.find { it.symbol == symbol } ?:
+        throw IllegalArgumentException("The user doesn't have stock with symbol $symbol")
+
+        if (existingHolding.quantity < quantity){
+            throw IllegalArgumentException("The required quantity for selling is more than how much the user has")
+        }
+
+        val currentPrice = stock.currentPrice
+
+        val totalCost = quantity * currentPrice
+
+        portfolio.cashBalance = portfolio.cashBalance + totalCost
+
+        val oldQty = existingHolding.quantity
+        val oldAvg = existingHolding.averageBuyPrice
+
+        existingHolding.quantity = existingHolding.quantity - quantity
+
+        if (existingHolding.quantity == 0){
+            portfolioService.removeHolding(symbol)
+        }
+        else{
+            val totalOldInvestment = oldQty * oldAvg
+            val totalNewInvestment = existingHolding.quantity * currentPrice
+
+            val newQuantity = existingHolding.quantity
+            val newAverageBuyPrice = (totalOldInvestment + totalNewInvestment) / newQuantity
+            portfolioService.updateHolding(portfolio, symbol, newQuantity, newAverageBuyPrice)
+        }
     }
 }
