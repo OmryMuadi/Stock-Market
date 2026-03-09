@@ -8,6 +8,6 @@ import javax.print.attribute.standard.DateTimeAtCreation
 data class Portfolio(
     @Id
     val portfolioId: Int,
-    val userId: Int,
+    val userEmail: String,
     var cashBalance: Float,
     var holdings: MutableList<Holding>)

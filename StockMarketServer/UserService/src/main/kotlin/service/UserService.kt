@@ -1,13 +1,12 @@
 package com.UserService.service
 
 import com.UserService.model.User
+import org.springframework.stereotype.Service
 
+@Service
 class UserService {
-    var users: MutableMap<String, User>
+    var users: MutableMap<String, User> = emptyMap<String, User>() as MutableMap<String, User>
 
-    constructor(){
-        users = emptyMap<String, User>() as MutableMap<String, User>
-    }
 
     fun register(firstName: String, lastName: String, email: String, password: String){
         if (password.length < 6){
