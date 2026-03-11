@@ -39,6 +39,18 @@ class TradingService(val portfolioService: PortfolioService) {
             portfolioService.addHolding(portfolio, symbol, quantity, currentPrice)
         }
         // to be continued, I should add transaction service
+//        transaction = Transaction(
+//            type = BUY,
+//            userId = userId,
+//            symbol = symbol,
+//            quantity = quantity,
+//            priceAtExecution = currentPrice,
+//            totalAmount = totalCost,
+//            timestamp = now
+//        )
+//
+//        transactionRepository.save(transaction)
+//        portfolioRepository.save(portfolio)
     }
 
     fun sellStock(userEmail: String, symbol: String, quantity: Int){
@@ -77,5 +89,17 @@ class TradingService(val portfolioService: PortfolioService) {
             val newAverageBuyPrice = (totalOldInvestment + totalNewInvestment) / newQuantity
             portfolioService.updateHolding(portfolio, symbol, newQuantity, newAverageBuyPrice)
         }
+//        transaction = Transaction(
+//            type = BUY,
+//            userId = userId,
+//            symbol = symbol,
+//            quantity = quantity,
+//            priceAtExecution = currentPrice,
+//            totalAmount = totalCost,
+//            timestamp = now
+//        )
+//
+//        transactionRepository.save(transaction)
+//        portfolioRepository.save(portfolio)
     }
 }

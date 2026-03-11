@@ -1,6 +1,7 @@
 package dev.kourier.service
 
 import dev.kourier.model.Stock
+import java.time.LocalDateTime
 
 class StockService {
     var stocks: MutableMap<String, Stock>;
@@ -17,5 +18,9 @@ class StockService {
 
     fun getAllStocks(): List<Stock>{
         return stocks.values.toList()
+    }
+
+    fun addStock(symbol: String, name: String, currentPrice: Float){
+        stocks.put(symbol, Stock(symbol, name, currentPrice, LocalDateTime.now()))
     }
 }

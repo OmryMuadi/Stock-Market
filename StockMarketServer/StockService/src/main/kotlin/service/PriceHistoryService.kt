@@ -15,4 +15,11 @@ class PriceHistoryService {
         }
         return priceHistories[symbol]!!.datesAndPrices
     }
+
+    fun getEntityByStock(symbol: String): PriceHistory? {
+        if (priceHistories[symbol] == null){
+            throw IllegalArgumentException("Stock with symbol $symbol not found in history")
+        }
+        return priceHistories[symbol]
+    }
 }

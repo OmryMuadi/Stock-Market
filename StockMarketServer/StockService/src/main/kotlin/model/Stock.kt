@@ -2,10 +2,12 @@ package dev.kourier.model
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import java.time.LocalDateTime
 
 @Document(collection = "stocks")
 data class Stock(
     @Id
     val symbol: String,
     val name: String,
-    val currentPrice: Float)
+    var currentPrice: Float,
+    var lastUpdatedAt: LocalDateTime)
