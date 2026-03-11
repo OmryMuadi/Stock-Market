@@ -79,7 +79,7 @@ class TradingService(val portfolioService: PortfolioService) {
         existingHolding.quantity = existingHolding.quantity - quantity
 
         if (existingHolding.quantity == 0){
-            portfolioService.removeHolding(symbol)
+            portfolioService.removeHolding(portfolio, symbol)
         }
         else{
             val totalOldInvestment = oldQty * oldAvg

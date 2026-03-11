@@ -32,7 +32,7 @@ class PortfolioService(val portfolioRepository: PortfolioRepository,
         holding?.averageBuyPrice = newAveragePrice
     }
 
-    fun removeHolding(holdingSymbol: String){
-
+    fun removeHolding(portfolio: Portfolio, symbol: String){
+        portfolio.holdings.removeIf { it.symbol == symbol }
     }
 }
