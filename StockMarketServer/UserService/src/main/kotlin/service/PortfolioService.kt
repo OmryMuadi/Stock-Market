@@ -13,8 +13,7 @@ class PortfolioService(val portfolioRepository: PortfolioRepository,
         return portfolioRepository.findByUserEmail(userEmail)
     }
 
-    fun decreaseCash(userEmail: String,cash: Float){
-        val portfolio = getPortfolio(userEmail) ?: throw IllegalArgumentException("Portfolio for email $userEmail not found")
+    fun decreaseCash(portfolio: Portfolio,cash: Float){
         portfolio.cashBalance = portfolio.cashBalance - cash
     }
 

@@ -20,7 +20,7 @@ class TradingService(val portfolioService: PortfolioService) {
             throw RuntimeException("Insufficient funds")
         }
 
-        portfolio.cashBalance = portfolio.cashBalance - totalCost
+        portfolioService.decreaseCash(portfolio, totalCost)
 
         val existingHolding = portfolio.holdings.find { it.symbol == symbol }
 
@@ -59,7 +59,7 @@ class TradingService(val portfolioService: PortfolioService) {
 
         val totalCost = quantity * currentPrice
 
-        portfolio.cashBalance = portfolio.cashBalance + totalCost
+        portfolioService.increaseCash(portfolio, totalCost)
 
         val oldQty = existingHolding.quantity
         val oldAvg = existingHolding.averageBuyPrice
