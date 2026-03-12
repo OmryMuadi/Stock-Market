@@ -16,11 +16,13 @@ class StockService {
         return stocks[symbol]!!
     }
 
-    fun getAllStocks(): List<Stock>{
-        return stocks.values.toList()
-    }
-
     fun addStock(symbol: String, name: String, currentPrice: Float){
         stocks.put(symbol, Stock(symbol, name, currentPrice, LocalDateTime.now()))
+    }
+
+    fun updateStock(symbol: String, )
+
+    fun getAllStocks(): List<Stock>{
+        return stocks.values.toList()
     }
 }

@@ -4,9 +4,16 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 
-@Document(collection = "stocks")
+//@Document(collection = "stocks")
+//data class Stock(
+//    @Id
+//    val symbol: String,
+//    val name: String,
+//    var currentPrice: Float,
+//    var lastUpdatedAt: LocalDateTime)
+
+
 data class Stock(
-    @Id
     val symbol: String,
     val name: String,
     var currentPrice: Float,
