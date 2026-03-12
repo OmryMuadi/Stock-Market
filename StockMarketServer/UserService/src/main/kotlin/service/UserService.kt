@@ -2,6 +2,7 @@ package com.UserService.service
 
 import com.UserService.model.User
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 @Service
 class UserService {
@@ -13,7 +14,7 @@ class UserService {
             throw IllegalArgumentException("Password is invalid")
         }
         val size = users.size
-        val user: User = User(size + 1, firstName, lastName, email, password, true)
+        val user: User = User(UUID.randomUUID(), firstName, lastName, email, password, true)
         users.put(email, user);
     }
 

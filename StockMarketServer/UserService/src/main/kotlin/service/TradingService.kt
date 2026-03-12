@@ -1,10 +1,13 @@
 package service
 
 import controller.MarketDataAPI.MarketDataClient
+import model.TransactionType
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
-class TradingService(val portfolioService: PortfolioService) {
+class TradingService(private val portfolioService: PortfolioService,
+                     private val transactionService: TransactionService) {
     fun buyStock(userEmail: String, symbol: String, quantity: Int){
         val portfolio = portfolioService.getPortfolio(userEmail)
             ?: throw RuntimeException("Portfolio not found")
@@ -37,20 +40,11 @@ class TradingService(val portfolioService: PortfolioService) {
             portfolioService.updateHolding(portfolio, symbol, newQuantity, newAverageBuyPrice)
         } else {
             portfolioService.addHolding(portfolio, symbol, quantity, currentPrice)
+
         }
-        // to be continued, I should add transaction service
-//        transaction = Transaction(
-//            type = BUY,
-//            userId = userId,
-//            symbol = symbol,
-//            quantity = quantity,
-//            priceAtExecution = currentPrice,
-//            totalAmount = totalCost,
-//            timestamp = now
-//        )
-//
-//        transactionRepository.save(transaction)
-//        portfolioRepository.save(portfolio)
+
+        transactionService.saveTransaction(TransactionType.BUY, userEmail, symbol, quantity, currentPrice)
+        portfolioService.savePortfolio(portfolio)
     }
 
     fun sellStock(userEmail: String, symbol: String, quantity: Int){
@@ -89,17 +83,7 @@ class TradingService(val portfolioService: PortfolioService) {
             val newAverageBuyPrice = (totalOldInvestment + totalNewInvestment) / newQuantity
             portfolioService.updateHolding(portfolio, symbol, newQuantity, newAverageBuyPrice)
         }
-//        transaction = Transaction(
-//            type = BUY,
-//            userId = userId,
-//            symbol = symbol,
-//            quantity = quantity,
-//            priceAtExecution = currentPrice,
-//            totalAmount = totalCost,
-//            timestamp = now
-//        )
-//
-//        transactionRepository.save(transaction)
-//        portfolioRepository.save(portfolio)
+        transactionService.saveTransaction(TransactionType.SELL, userEmail, symbol, quantity, currentPrice)
+        portfolioService.savePortfolio(portfolio)
     }
 }

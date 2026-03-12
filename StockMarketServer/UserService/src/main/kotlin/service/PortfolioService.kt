@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service
 import repository.PortfolioRepository
 
 @Service
-class PortfolioService(val portfolioRepository: PortfolioRepository,
-                        val userService: UserService){
+class PortfolioService(val portfolioRepository: PortfolioRepository){
     fun getPortfolio(userEmail: String): Portfolio? {
         return portfolioRepository.findByUserEmail(userEmail)
+    }
+
+    fun savePortfolio(portfolio: Portfolio): Portfolio {
+        return portfolioRepository.save<Portfolio>(portfolio)
     }
 
     fun decreaseCash(portfolio: Portfolio,cash: Float){
