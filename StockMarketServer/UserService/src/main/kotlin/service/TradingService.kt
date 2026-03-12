@@ -3,9 +3,8 @@ package service
 import controller.MarketDataAPI.MarketDataClient
 import model.TransactionType
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
 
-@Service
+// @Service
 class TradingService(private val portfolioService: PortfolioService,
                      private val transactionService: TransactionService) {
     fun buyStock(userEmail: String, symbol: String, quantity: Int){

@@ -4,7 +4,7 @@ import com.UserService.model.User
 import org.springframework.stereotype.Service
 import java.util.UUID
 
-@Service
+//@Service
 class UserService {
     var users: MutableMap<String, User> = emptyMap<String, User>() as MutableMap<String, User>
 
