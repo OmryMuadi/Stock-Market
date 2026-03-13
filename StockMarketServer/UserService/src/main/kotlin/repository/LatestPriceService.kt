@@ -6,7 +6,12 @@ class LatestPriceService {
     val prices: MutableMap<String ,LatestPrice> = emptyMap<String, LatestPrice>() as MutableMap<String, LatestPrice>
 
     fun save(latestPrice: LatestPrice){
-        prices.put(latestPrice.symbol,latestPrice)
+        if (prices[latestPrice.symbol] != null){
+            prices[latestPrice.symbol] = latestPrice
+        }
+        else{
+            prices.put(latestPrice.symbol,latestPrice)
+        }
     }
 
     fun getLastUpdate(symbol: String): LatestPrice? {

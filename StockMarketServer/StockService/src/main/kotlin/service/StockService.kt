@@ -1,12 +1,15 @@
 package dev.kourier.service
 
 import dev.kourier.model.Stock
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
+@Service
 class StockService {
-    var stocks: MutableMap<String, Stock>;
+    var stocks: MutableMap<String, Stock> = mutableMapOf()
+
     constructor(){
-        stocks = emptyMap<String, Stock>() as MutableMap<String, Stock>
+        stocks.put("APPL", Stock("APPL","Apple", 50.toFloat(), LocalDateTime.now()))
     }
 
     fun getStock(symbol: String): Stock{
@@ -20,7 +23,7 @@ class StockService {
         stocks.put(symbol, Stock(symbol, name, currentPrice, LocalDateTime.now()))
     }
 
-    fun updateStock(symbol: String, )
+//    fun updateStock(symbol: String, )
 
     fun getAllStocks(): List<Stock>{
         return stocks.values.toList()
