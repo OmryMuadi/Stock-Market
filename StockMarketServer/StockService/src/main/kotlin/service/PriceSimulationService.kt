@@ -52,8 +52,6 @@ class PriceSimulationService(
             stock.currentPrice = roundTo2(newPrice)
             stock.lastUpdatedAt = LocalDateTime.now()
 
-            println(stock.toString())
-
             val pricePoint = PricePoint(stock.lastUpdatedAt, stock.currentPrice)
             priceHistoryService.getPriceHistoryOfStock(stock.symbol).add(pricePoint)
 
