@@ -4,7 +4,7 @@ import dev.kourier.model.PriceUpdatedEvent
 import model.LatestPrice
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
-import repository.LatestPriceService
+import service.LatestPriceService
 
 @Component
 class PriceUpdateListener(

@@ -6,7 +6,7 @@ import java.util.UUID
 
 //@Service
 class UserService {
-    var users: MutableMap<String, User> = emptyMap<String, User>() as MutableMap<String, User>
+    var users: MutableMap<String, User> = mutableMapOf()
 
 
     fun register(firstName: String, lastName: String, email: String, password: String){
@@ -19,20 +19,6 @@ class UserService {
     }
 
     fun login(email: String, password: String){
-//        for ((_, user) in users){
-//            if (user.email == email && user.isLoggedIn){
-//                throw IllegalArgumentException("The user is already logged in")
-//            }
-//            else
-//                if(user.email == email && user.password != password){
-//                    throw IllegalArgumentException("Password mismatch")
-//            }
-//            else
-//                if(user.email == email){
-//                    user.isLoggedIn = true;
-//                }
-//        }
-//        throw IllegalArgumentException("User with email $email not found")
         if (users[email] == null){
             throw IllegalArgumentException("User with email $email not found")
         }
@@ -49,15 +35,6 @@ class UserService {
     }
 
     fun logout(email: String){
-//        for ((_, user) in users){
-//            if (user.email == email && !user.isLoggedIn){
-//                throw IllegalArgumentException("The user is already logged out")
-//            }
-//            else
-//                if(user.email == email){
-//                    user.isLoggedIn = false
-//                }
-//        }
         if (users[email] == null){
             throw IllegalArgumentException("User with email $email not found")
         }
@@ -72,12 +49,6 @@ class UserService {
     }
 
     fun getUser(email: String): User{
-//        for ((_, user) in users) {
-//            if (user.email == email){
-//                return user
-//            }
-//        }
-//        throw IllegalArgumentException("User with email $email not found")
         if (users[email] == null){
             throw IllegalArgumentException("User with email $email not found")
         }

@@ -1,20 +1,20 @@
 package service
 
-import controller.MarketDataAPI.MarketDataClient
 import model.TransactionType
-import org.springframework.stereotype.Service
 
 // @Service
 class TradingService(private val portfolioService: PortfolioService,
-                     private val transactionService: TransactionService) {
+                     private val transactionService: TransactionService,
+    private val latestPriceService: LatestPriceService) {
     fun buyStock(userEmail: String, symbol: String, quantity: Int){
         val portfolio = portfolioService.getPortfolio(userEmail)
             ?: throw RuntimeException("Portfolio not found")
 
-        val stock = MarketDataClient.getStockBySymbol(symbol)
-            ?: throw RuntimeException("Stock not found")
+        if(latestPriceService.prices[symbol] == null){
+            throw IllegalArgumentException("Stock with symbol $symbol not found")
+        }
 
-        val currentPrice = stock.currentPrice
+        val currentPrice = latestPriceService.prices[symbol]!!.price
 
         val totalCost = quantity * currentPrice
 
@@ -50,8 +50,9 @@ class TradingService(private val portfolioService: PortfolioService,
         val portfolio = portfolioService.getPortfolio(userEmail)
             ?: throw RuntimeException("Portfolio not found")
 
-        val stock = MarketDataClient.getStockBySymbol(symbol)
-            ?: throw RuntimeException("Stock not found")
+        if(latestPriceService.prices[symbol] == null){
+            throw IllegalArgumentException("Stock with symbol $symbol not found")
+        }
 
         val existingHolding = portfolio.holdings.find { it.symbol == symbol } ?:
         throw IllegalArgumentException("The user doesn't have stock with symbol $symbol")
@@ -60,7 +61,7 @@ class TradingService(private val portfolioService: PortfolioService,
             throw IllegalArgumentException("The required quantity for selling is more than how much the user has")
         }
 
-        val currentPrice = stock.currentPrice
+        val currentPrice = latestPriceService.prices[symbol]!!.price
 
         val totalCost = quantity * currentPrice
 

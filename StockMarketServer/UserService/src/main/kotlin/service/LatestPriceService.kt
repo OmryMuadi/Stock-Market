@@ -1,9 +1,9 @@
-package repository
+package service
 
 import model.LatestPrice
 
 class LatestPriceService {
-    val prices: MutableMap<String ,LatestPrice> = emptyMap<String, LatestPrice>() as MutableMap<String, LatestPrice>
+    val prices: MutableMap<String , LatestPrice> = emptyMap<String, LatestPrice>() as MutableMap<String, LatestPrice>
 
     fun save(latestPrice: LatestPrice){
         if (prices[latestPrice.symbol] != null){
