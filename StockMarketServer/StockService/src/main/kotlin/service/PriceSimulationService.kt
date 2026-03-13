@@ -2,7 +2,9 @@ package dev.kourier.service
 
 import dev.kourier.model.PriceHistory
 import dev.kourier.model.PricePoint
+import dev.kourier.model.PriceUpdatedEvent
 import dev.kourier.model.Stock
+import dev.kourier.rabbitmq.PriceEventPublisher
 import dev.kourier.repository.PriceHistoryRepository
 import dev.kourier.repository.StockRepository
 import org.springframework.scheduling.annotation.Scheduled
@@ -62,7 +64,8 @@ import kotlin.random.Random
 
 class PriceSimulationService(
     private val stockService: StockService,
-    private val priceHistoryService: PriceHistoryService) {
+    private val priceHistoryService: PriceHistoryService,
+    private val priceEventPublisher: PriceEventPublisher) {
     val OPEN_TIME: LocalTime = LocalTime.of(9, 0)
     val CLOSE_TIME: LocalTime = LocalTime.of(17, 0)
     val MIN_RANDOM_PERCENT = -0.02
@@ -98,6 +101,8 @@ class PriceSimulationService(
             val pricePoint = PricePoint(stock.lastUpdatedAt, stock.currentPrice)
             priceHistoryService.getPriceHistoryOfStock(stock.symbol).add(pricePoint)
 
+            val priceEvent = PriceUpdatedEvent(stock.symbol, stock.currentPrice, stock.lastUpdatedAt)
+            priceEventPublisher.publishPriceUpdated(priceEvent)
             // websockets are not used yet
 
         }
