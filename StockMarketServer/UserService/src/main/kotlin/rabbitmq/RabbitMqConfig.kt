@@ -12,7 +12,7 @@ class RabbitMqConfig {
 
     companion object {
         const val PRICE_EXCHANGE = "price.exchange"
-        const val USER_PRICE_QUEUE = "user.price.queue"
+        const val PRICE_QUEUE = "price.queue"
         const val PRICE_ROUTING_KEY = "price.updated"
     }
 
