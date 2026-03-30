@@ -16,7 +16,7 @@ class TradingService(private val portfolioService: PortfolioService,
             throw IllegalArgumentException("Stock with symbol $symbol not found")
         }
 
-        val currentPrice = latestPriceService.prices[symbol]!!.price
+        val currentPrice = latestPriceService.getLastPrice(symbol)
 
         val totalCost = quantity * currentPrice
 
@@ -38,7 +38,7 @@ class TradingService(private val portfolioService: PortfolioService,
             val newQuantity = oldQty + quantity
             val newAverageBuyPrice = (totalOldInvestment + totalNewInvestment) / newQuantity
 
-            portfolioService.updateHolding(portfolio, symbol, newQuantity, newAverageBuyPrice)
+            portfolioService.updateHolding(portfolio, symbol, newQuantity, newAverageBuyPrice, currentPrice)
         } else {
             portfolioService.addHolding(portfolio, symbol, quantity, currentPrice)
 
@@ -63,7 +63,7 @@ class TradingService(private val portfolioService: PortfolioService,
             throw IllegalArgumentException("The required quantity for selling is more than how much the user has")
         }
 
-        val currentPrice = latestPriceService.prices[symbol]!!.price
+        val currentPrice = latestPriceService.getLastPrice(symbol)
 
         val totalCost = quantity * currentPrice
 
@@ -83,7 +83,7 @@ class TradingService(private val portfolioService: PortfolioService,
 
             val newQuantity = existingHolding.quantity
             val newAverageBuyPrice = (totalOldInvestment + totalNewInvestment) / newQuantity
-            portfolioService.updateHolding(portfolio, symbol, newQuantity, newAverageBuyPrice)
+            portfolioService.updateHolding(portfolio, symbol, newQuantity, newAverageBuyPrice, currentPrice)
         }
         transactionService.saveTransaction(TransactionType.SELL, userEmail, symbol, quantity, currentPrice)
         portfolioService.savePortfolio(portfolio)

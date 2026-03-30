@@ -19,7 +19,7 @@ class PriceSimulationService(
     private val priceEventPublisher: PriceEventPublisher
 ) {
     val OPEN_TIME: LocalTime = LocalTime.of(9, 0)
-    val CLOSE_TIME: LocalTime = LocalTime.of(23, 0)
+    val CLOSE_TIME: LocalTime = LocalTime.of(17, 0)
     val MIN_RANDOM_PERCENT = -0.02
     val MAX_RANDOM_PERCENT = 0.02
     fun roundTo2(value: Double): Float {
