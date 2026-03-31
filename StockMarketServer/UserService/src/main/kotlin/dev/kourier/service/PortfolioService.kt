@@ -4,8 +4,6 @@ import dev.kourier.model.Holding
 import dev.kourier.model.Portfolio
 import org.springframework.stereotype.Service
 
-//import repository.PortfolioRepository
-
 @Service
 class PortfolioService{
     val portfolios: MutableMap<String, Portfolio> = mutableMapOf()
@@ -43,6 +41,14 @@ class PortfolioService{
 
     fun removeHolding(portfolio: Portfolio, symbol: String): Boolean {
         return portfolio.holdings.removeIf { it.symbol == symbol }
+    }
+
+    fun addToWatchlist(userEmail: String, symbol: String){
+        getPortfolio(userEmail)?.watchlist?.add(symbol)
+    }
+
+    fun removeFromWatchlist(userEmail: String, symbol: String){
+        getPortfolio(userEmail)?.watchlist?.removeIf { it == symbol}
     }
 
     fun totalValue(portfolio: Portfolio): Float{

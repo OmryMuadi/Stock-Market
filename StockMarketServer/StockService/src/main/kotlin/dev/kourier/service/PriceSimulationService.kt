@@ -52,12 +52,10 @@ class PriceSimulationService(
             stock.lastUpdatedAt = LocalDateTime.now()
 
             val pricePoint = PricePoint(stock.lastUpdatedAt, stock.currentPrice)
-            priceHistoryService.getPriceHistoryOfStock(stock.symbol).add(pricePoint)
+            priceHistoryService.addPricePoint(stock.symbol, pricePoint)
 
             val priceEvent = PriceUpdatedEvent(stock.symbol, stock.currentPrice, stock.lastUpdatedAt)
             priceEventPublisher.publishPriceUpdated(priceEvent)
-            // websockets are not used yet
-
         }
     }
 

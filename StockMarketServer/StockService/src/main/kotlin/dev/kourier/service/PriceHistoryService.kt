@@ -8,21 +8,17 @@ import org.springframework.stereotype.Service
 class PriceHistoryService {
     var priceHistories: MutableMap<String, PriceHistory> = mutableMapOf()
 
-    fun getPriceHistoryOfStock(symbol: String): MutableList<PricePoint>{
+    fun addPricePoint(symbol: String, pricePoint: PricePoint){
         if (priceHistories[symbol] == null){
-            priceHistories[symbol] = PriceHistory(symbol, mutableListOf())
+            priceHistories[symbol] = PriceHistory(symbol, mutableListOf(pricePoint))
         }
-        return priceHistories[symbol]!!.datesAndPrices
+        priceHistories[symbol]!!.datesAndPrices.add(pricePoint)
     }
 
-    fun addStock(symbol: String){
-        priceHistories.put(symbol, PriceHistory(symbol, mutableListOf()))
-    }
-
-    fun getEntityByStock(symbol: String): PriceHistory? {
+    fun getStockPriceHistory(symbol: String): MutableList<PricePoint> {
         if (priceHistories[symbol] == null){
             throw IllegalArgumentException("Stock with symbol $symbol not found in history")
         }
-        return priceHistories[symbol]
+        return priceHistories[symbol]!!.datesAndPrices
     }
 }

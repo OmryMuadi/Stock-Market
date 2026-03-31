@@ -6,4 +6,5 @@ data class Portfolio(
     val portfolioId: UUID,
     val userEmail: String,
     var cashBalance: Float,
-    var holdings: MutableList<Holding>)
+    var holdings: MutableList<Holding>,
+    var watchlist: MutableSet<String>)
