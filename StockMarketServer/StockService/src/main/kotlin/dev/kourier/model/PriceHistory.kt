@@ -7,12 +7,6 @@ data class PricePoint(
     val price: Float
 )
 
-//@Document(collection = "price_history")
-//data class PriceHistory(
-//    @Id
-//    val symbol: String,
-//    var datesAndPrices: MutableList<PricePoint>)
-
 data class PriceHistory(
     val symbol: String,
     var datesAndPrices: MutableList<PricePoint>)

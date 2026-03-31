@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class PortfolioService{
     val portfolios: MutableMap<String, Portfolio> = mutableMapOf()
+
     fun getPortfolio(userEmail: String): Portfolio? {
         return portfolios[userEmail] ?: throw IllegalArgumentException("Portfolio for user email $userEmail not found")
     }
@@ -18,6 +19,9 @@ class PortfolioService{
     }
 
     fun decreaseCash(portfolio: Portfolio,cash: Float){
+        if (portfolio.cashBalance - cash < 0){
+            throw IllegalArgumentException("You cannot withdraw money more than what you actually have")
+        }
         portfolio.cashBalance = portfolio.cashBalance - cash
     }
 
@@ -37,7 +41,15 @@ class PortfolioService{
         holding?.currentPrice = currentPrice
     }
 
-    fun removeHolding(portfolio: Portfolio, symbol: String){
-        portfolio.holdings.removeIf { it.symbol == symbol }
+    fun removeHolding(portfolio: Portfolio, symbol: String): Boolean {
+        return portfolio.holdings.removeIf { it.symbol == symbol }
+    }
+
+    fun totalValue(portfolio: Portfolio): Float{
+        var total: Float = 0.0.toFloat()
+        for (holding in portfolio.holdings){
+            total = total + holding.averageBuyPrice * holding.quantity
+        }
+        return total
     }
 }

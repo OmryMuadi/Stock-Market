@@ -18,10 +18,6 @@ class LatestPriceService {
         Logger.log(prices.toString())
     }
 
-    fun getLastUpdate(symbol: String): LatestPrice? {
-        return prices[symbol] ?: throw IllegalArgumentException("Stock with symbol $symbol not found")
-    }
-
     fun getLastPrice(symbol: String): Float {
         if (prices[symbol] == null){
             throw IllegalArgumentException("Stock with symbol $symbol is not found")
